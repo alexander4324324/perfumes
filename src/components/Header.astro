@@ -1,0 +1,20 @@
+---
+import { siteConfig } from "../config";
+---
+
+<header class="relative overflow-hidden border-b border-white/10">
+  <div
+    class="pointer-events-none absolute -top-24 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-amber/20 blur-3xl"
+  >
+  </div>
+  <div class="relative mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
+    <a href="/" class="inline-block">
+      <span class="font-display text-4xl font-medium tracking-tight text-bone sm:text-6xl">
+        {siteConfig.nombre}
+      </span>
+    </a>
+    <p class="mx-auto mt-4 max-w-md text-balance text-base text-bone/70 sm:text-lg">
+      {siteConfig.tagline}
+    </p>
+  </div>
+</header>

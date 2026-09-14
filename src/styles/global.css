@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-ink: #1b1420;
+  --color-surface: #241c2c;
+  --color-surface-light: #322838;
+  --color-bone: #f7f3ee;
+  --color-amber: #c98a3e;
+  --color-amber-light: #e0ac6c;
+  --color-wine: #8b3a4a;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink);
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+
+  ::selection {
+    background-color: var(--color-amber);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-amber-light);
+    outline-offset: 2px;
+  }
+}

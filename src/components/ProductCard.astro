@@ -1,0 +1,60 @@
+---
+import type { Perfume } from "../types";
+import { linkWhatsapp } from "../config";
+
+interface Props {
+  perfume: Perfume;
+}
+
+const { perfume } = Astro.props;
+---
+
+<article
+  data-categorias={perfume.categorias.join(",")}
+  class="group flex flex-col overflow-hidden rounded-lg border border-white/10 bg-surface transition-colors hover:border-amber/40"
+>
+  <a href={`/perfume/${perfume.slug}`} class="block">
+    <div class="relative aspect-[4/5] overflow-hidden bg-surface-light">
+      <img
+        src={perfume.imagen}
+        alt={`Frasco de ${perfume.nombre}`}
+        loading="lazy"
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+      />
+      {
+        !perfume.disponible && (
+          <span class="absolute left-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-xs text-bone/80">
+            Agotado
+          </span>
+        )
+      }
+    </div>
+  </a>
+
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <p class="text-xs uppercase tracking-wide text-bone/50">{perfume.marca}</p>
+    <a href={`/perfume/${perfume.slug}`}>
+      <h3 class="font-display text-xl text-bone">{perfume.nombre}</h3>
+    </a>
+    <p class="line-clamp-2 text-sm text-bone/70">{perfume.descripcion}</p>
+
+    <div class="mt-1 flex flex-wrap gap-1.5">
+      {
+        perfume.categorias.map((categoria) => (
+          <span class="rounded-full border border-white/10 px-2.5 py-0.5 text-xs text-bone/60">
+            {categoria}
+          </span>
+        ))
+      }
+    </div>
+
+    <a
+      href={linkWhatsapp(perfume.nombre)}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-4 inline-flex items-center justify-center rounded-full bg-amber px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-amber-light"
+    >
+      Consultar por WhatsApp
+    </a>
+  </div>
+</article>

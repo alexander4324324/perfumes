@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Filters from "../components/Filters.astro";
+import ProductCard from "../components/ProductCard.astro";
+import { perfumesDeMuestra } from "../data/perfumes";
+import { sanityClient, PERFUMES_QUERY } from "../lib/sanity";
+import type { Perfume } from "../types";
+import { siteConfig } from "../config";
+
+// Usa Sanity si ya está configurado en .env; si no, usa los datos de muestra.
+const perfumes: Perfume[] = sanityClient
+  ? await sanityClient.fetch(PERFUMES_QUERY)
+  : perfumesDeMuestra;
+---
+
+<Layout title={`${siteConfig.nombre} — Catálogo de perfumes`}>
+  <Header />
+
+  <main class="mx-auto max-w-5xl px-6 pb-24">
+    <Filters />
+
+    <p class="py-6 text-sm text-bone/50">
+      {perfumes.length} fragancias disponibles
+    </p>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {perfumes.map((perfume) => <ProductCard perfume={perfume} />)}
+    </div>
+  </main>
+
+  <footer class="border-t border-white/10 py-10 text-center text-sm text-bone/40">
+    © {new Date().getFullYear()} {siteConfig.nombre}
+  </footer>
+</Layout>
