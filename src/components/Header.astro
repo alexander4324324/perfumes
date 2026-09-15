@@ -8,12 +8,21 @@ import { siteConfig } from "../config";
   >
   </div>
   <div class="relative mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
-    <a href="/" class="inline-block">
-      <span class="font-display text-4xl font-medium tracking-tight text-ink sm:text-6xl">
-        {siteConfig.nombre}
+    <a href="/" class="inline-flex flex-col leading-[0.9]">
+      <span
+        class="font-display text-5xl uppercase tracking-wide bg-clip-text text-transparent sm:text-6xl md:text-7xl"
+        style="background: linear-gradient(180deg, #6b6b6b 0%, #1a1a1a 25%, #000000 50%, #4a4a4a 70%, #0a0a0a 100%); -webkit-background-clip: text; text-shadow: 0 1px 1px rgba(255,255,255,0.15);"
+      >
+        {siteConfig.nombreLinea1}
+      </span>
+      <span
+        class="font-display text-6xl uppercase tracking-wide bg-clip-text text-transparent sm:text-7xl md:text-8xl"
+        style="background: linear-gradient(180deg, #FFF6D8 0%, #F3DA8E 20%, #D9AE3F 45%, #B8892E 65%, #E8C976 80%, #8A661F 100%); -webkit-background-clip: text; text-shadow: 0 1px 1px rgba(0,0,0,0.15);"
+      >
+        {siteConfig.nombreLinea2}
       </span>
     </a>
-    <p class="mx-auto mt-4 max-w-md text-balance text-base text-ink/70 sm:text-lg">
+    <p class="mx-auto mt-6 max-w-md text-balance text-base text-ink/70 sm:text-lg">
       {siteConfig.tagline}
     </p>
   </div>

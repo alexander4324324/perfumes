@@ -5,6 +5,7 @@ import { perfumesDeMuestra } from "../../data/perfumes";
 import { sanityClient, PERFUMES_QUERY } from "../../lib/sanity";
 import { siteConfig, formatCLP } from "../../config";
 import AccordBars from "../../components/AccordBars.astro";
+import RelatedPerfumes from "../../components/RelatedPerfumes.astro";
 import type { Perfume } from "../../types";
 
 export async function getStaticPaths() {
@@ -14,12 +15,25 @@ export async function getStaticPaths() {
 
   return perfumes.map((perfume) => ({
     params: { slug: perfume.slug },
-    props: { perfume },
+    props: { perfume, todosLosPerfumes: perfumes },
   }));
 }
 
-const { perfume } = Astro.props as { perfume: Perfume };
+const { perfume, todosLosPerfumes } = Astro.props as {
+  perfume: Perfume;
+  todosLosPerfumes: Perfume[];
+};
 const inputId = `cantidad-${perfume._id}`;
+
+// Perfumes de la misma categoría (prioridad), completando con otros si faltan.
+const otros = todosLosPerfumes.filter((p) => p.slug !== perfume.slug);
+const mismaCategoria = otros.filter((p) =>
+  p.categorias.some((c) => perfume.categorias.includes(c))
+);
+const relacionados = [
+  ...mismaCategoria,
+  ...otros.filter((p) => !mismaCategoria.includes(p)),
+].slice(0, 3);
 ---
 
 <Layout title={`${perfume.nombre} — ${siteConfig.nombre}`} description={perfume.descripcion}>
@@ -59,7 +73,7 @@ const inputId = `cantidad-${perfume._id}`;
           <AccordBars acordes={perfume.acordes} />
         )}
 
-        <p class="font-display text-2xl text-amber">{formatCLP(perfume.precio)}</p>
+        <p class="font-body text-2xl font-semibold text-ink">{formatCLP(perfume.precio)}</p>
 
         {
           !perfume.disponible && (
@@ -109,5 +123,7 @@ const inputId = `cantidad-${perfume._id}`;
         </div>
       </div>
     </div>
+
+    <RelatedPerfumes perfumes={relacionados} />
   </main>
 </Layout>

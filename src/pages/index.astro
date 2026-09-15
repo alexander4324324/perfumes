@@ -24,12 +24,8 @@ const perfumes: Perfume[] = sanityClient
       {perfumes.length} fragancias disponibles
     </p>
 
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div id="grilla-perfumes" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {perfumes.map((perfume) => <ProductCard perfume={perfume} />)}
     </div>
   </main>
-
-  <footer class="border-t border-black/10 py-10 text-center text-sm text-ink/40">
-    © {new Date().getFullYear()} {siteConfig.nombre}
-  </footer>
 </Layout>

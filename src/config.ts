@@ -1,9 +1,19 @@
 // Cambia estos valores por los datos reales de tu amigo.
 export const siteConfig = {
-  nombre: "Aromé",
+  nombreLinea1: "Perfumes",
+  nombreLinea2: "Club",
+  nombre: "Perfumes Club",
   tagline: "Fragancias de nicho, elegidas una por una",
   whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? "56900000000",
+  instagramUsuario: "perfumesclub.cl",
+  infoEntrega: [
+    { emoji: "📦", texto: "Perfumes por encargo & catálogo disponible." },
+    { emoji: "🚇", texto: "Entregas: L4 (Sótero del Río y Protectora de la Infancia)." },
+    { emoji: "🚚", texto: "Envíos a todo Chile vía Starken." },
+  ],
 };
+
+export const instagramUrl = `https://instagram.com/${siteConfig.instagramUsuario}`;
 
 export function linkWhatsapp(nombrePerfume: string) {
   const mensaje = encodeURIComponent(

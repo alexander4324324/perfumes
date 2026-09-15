@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Fraunces", serif;
+  --font-display: "Abril Fatface", serif;
   --font-body: "Inter", sans-serif;
 
-  --color-canvas: #f7f4ee;
+  --color-canvas: #ffffff;
   --color-surface: #ffffff;
-  --color-surface-light: #f0e9dd;
-  --color-ink: #2b2620;
-  --color-amber: #a9782f;
-  --color-amber-light: #c79a4b;
-  --color-wine: #8b3a4a;
+  --color-surface-light: #f4f4f4;
+  --color-ink: #171717;
+  --color-amber: #171717;
+  --color-amber-light: #3a3a3a;
+  --color-wine: #9b2226;
 }
 
 @layer base {
@@ -26,12 +26,12 @@
   }
 
   ::selection {
-    background-color: var(--color-amber);
+    background-color: var(--color-ink);
     color: white;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-amber);
+    outline: 2px solid var(--color-ink);
     outline-offset: 2px;
   }
 }

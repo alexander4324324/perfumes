@@ -1,55 +1,183 @@
 ---
-const categorias = ["Todos", "Hombre", "Mujer", "Unisex", "Noche"] as const;
+const categorias = ["Todos", "Hombre", "Mujer", "Unisex"] as const;
+const ordenes = [
+  { valor: "relevancia", etiqueta: "Relevancia" },
+  { valor: "precio-asc", etiqueta: "Precio: menor a mayor" },
+  { valor: "precio-desc", etiqueta: "Precio: mayor a menor" },
+] as const;
 ---
 
 <div
-  class="sticky top-0 z-10 -mx-6 border-b border-black/10 bg-canvas/90 px-6 py-4 backdrop-blur"
+  class="sticky top-0 z-10 -mx-6 border-b border-black/10 bg-canvas/95 px-6 py-4 backdrop-blur"
   id="filtros"
 >
-  <div class="mx-auto flex max-w-5xl flex-wrap gap-2">
-    {
-      categorias.map((categoria, i) => (
-        <button
-          type="button"
-          data-filtro={categoria}
-          aria-pressed={i === 0 ? "true" : "false"}
-          class:list={[
-            "filtro-btn rounded-full border px-4 py-1.5 text-sm transition-colors",
-            i === 0
-              ? "border-amber bg-amber text-white"
-              : "border-black/15 text-ink/70 hover:border-amber/60 hover:text-ink",
-          ]}
-        >
-          {categoria}
-        </button>
-      ))
-    }
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-3">
+    <div class="relative min-w-[160px] flex-1">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input
+        id="buscador"
+        type="text"
+        placeholder="Buscar perfume o marca..."
+        class="w-full rounded-full border border-black/15 bg-surface py-2 pl-9 pr-4 text-sm text-ink placeholder:text-ink/40 focus:border-amber"
+      />
+    </div>
+
+    <div class="relative shrink-0">
+      <button
+        type="button"
+        id="orden-boton"
+        class="flex items-center gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink"
+      >
+        <span id="orden-etiqueta">Relevancia</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </button>
+
+      <div
+        id="orden-menu"
+        class="absolute right-0 top-full z-20 mt-2 hidden w-52 overflow-hidden rounded-lg border border-black/10 bg-surface shadow-lg"
+      >
+        {
+          ordenes.map((orden) => (
+            <button
+              type="button"
+              data-orden={orden.valor}
+              class="orden-opcion block w-full px-4 py-2.5 text-left text-sm text-ink hover:bg-surface-light"
+            >
+              {orden.etiqueta}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="relative shrink-0">
+      <button
+        type="button"
+        id="categoria-boton"
+        class="flex items-center gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink"
+      >
+        <span id="categoria-etiqueta">Todos</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </button>
+
+      <div
+        id="categoria-menu"
+        class="absolute right-0 top-full z-20 mt-2 hidden w-40 overflow-hidden rounded-lg border border-black/10 bg-surface shadow-lg"
+      >
+        {
+          categorias.map((categoria) => (
+            <button
+              type="button"
+              data-filtro={categoria}
+              class="categoria-opcion block w-full px-4 py-2.5 text-left text-sm text-ink hover:bg-surface-light"
+            >
+              {categoria}
+            </button>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-  const botones = document.querySelectorAll<HTMLButtonElement>(".filtro-btn");
-  const tarjetas = document.querySelectorAll<HTMLElement>("[data-categorias]");
+  const inputBuscador = document.getElementById("buscador") as HTMLInputElement;
 
-  botones.forEach((boton) => {
-    boton.addEventListener("click", () => {
-      const filtro = boton.dataset.filtro!;
+  const botonCategoria = document.getElementById("categoria-boton")!;
+  const menuCategoria = document.getElementById("categoria-menu")!;
+  const etiquetaCategoria = document.getElementById("categoria-etiqueta")!;
+  const opcionesCategoria = document.querySelectorAll<HTMLButtonElement>(".categoria-opcion");
 
-      botones.forEach((b) => {
-        const activo = b === boton;
-        b.setAttribute("aria-pressed", String(activo));
-        b.classList.toggle("bg-amber", activo);
-        b.classList.toggle("text-white", activo);
-        b.classList.toggle("border-amber", activo);
-        b.classList.toggle("border-black/15", !activo);
-        b.classList.toggle("text-ink/70", !activo);
-      });
+  const botonOrden = document.getElementById("orden-boton")!;
+  const menuOrden = document.getElementById("orden-menu")!;
+  const etiquetaOrden = document.getElementById("orden-etiqueta")!;
+  const opcionesOrden = document.querySelectorAll<HTMLButtonElement>(".orden-opcion");
 
-      tarjetas.forEach((tarjeta) => {
-        const categorias = tarjeta.dataset.categorias?.split(",") ?? [];
-        const coincide = filtro === "Todos" || categorias.includes(filtro);
-        tarjeta.classList.toggle("hidden", !coincide);
-      });
+  const grilla = document.getElementById("grilla-perfumes");
+
+  let categoriaActiva = "Todos";
+  let ordenActivo = "relevancia";
+
+  function aplicarFiltros() {
+    const termino = inputBuscador.value.trim().toLowerCase();
+    const tarjetas = document.querySelectorAll<HTMLElement>("[data-categorias]");
+
+    tarjetas.forEach((tarjeta) => {
+      const categorias = tarjeta.dataset.categorias?.split(",") ?? [];
+      const buscar = tarjeta.dataset.buscar ?? "";
+
+      const coincideCategoria = categoriaActiva === "Todos" || categorias.includes(categoriaActiva);
+      const coincideBusqueda = termino === "" || buscar.includes(termino);
+
+      tarjeta.classList.toggle("hidden", !(coincideCategoria && coincideBusqueda));
+    });
+  }
+
+  function aplicarOrden() {
+    if (!grilla) return;
+    const tarjetas = Array.from(grilla.querySelectorAll<HTMLElement>("[data-precio]"));
+
+    if (ordenActivo === "precio-asc") {
+      tarjetas.sort((a, b) => Number(a.dataset.precio) - Number(b.dataset.precio));
+    } else if (ordenActivo === "precio-desc") {
+      tarjetas.sort((a, b) => Number(b.dataset.precio) - Number(a.dataset.precio));
+    }
+    // "relevancia" no reordena, deja el orden original del catálogo.
+
+    tarjetas.forEach((tarjeta) => grilla.appendChild(tarjeta));
+  }
+
+  inputBuscador.addEventListener("input", aplicarFiltros);
+
+  botonCategoria.addEventListener("click", () => {
+    menuCategoria.classList.toggle("hidden");
+    menuOrden.classList.add("hidden");
+  });
+
+  botonOrden.addEventListener("click", () => {
+    menuOrden.classList.toggle("hidden");
+    menuCategoria.classList.add("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    const target = e.target as Node;
+    if (!botonCategoria.contains(target) && !menuCategoria.contains(target)) {
+      menuCategoria.classList.add("hidden");
+    }
+    if (!botonOrden.contains(target) && !menuOrden.contains(target)) {
+      menuOrden.classList.add("hidden");
+    }
+  });
+
+  opcionesCategoria.forEach((opcion) => {
+    opcion.addEventListener("click", () => {
+      categoriaActiva = opcion.dataset.filtro!;
+      etiquetaCategoria.textContent = categoriaActiva;
+      menuCategoria.classList.add("hidden");
+      aplicarFiltros();
+    });
+  });
+
+  opcionesOrden.forEach((opcion) => {
+    opcion.addEventListener("click", () => {
+      ordenActivo = opcion.dataset.orden!;
+      etiquetaOrden.textContent = opcion.textContent?.trim() ?? "Relevancia";
+      menuOrden.classList.add("hidden");
+      aplicarOrden();
     });
   });
 </script>

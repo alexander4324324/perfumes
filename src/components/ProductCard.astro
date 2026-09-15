@@ -11,6 +11,8 @@ const { perfume } = Astro.props;
 
 <article
   data-categorias={perfume.categorias.join(",")}
+  data-buscar={`${perfume.nombre} ${perfume.marca}`.toLowerCase()}
+  data-precio={perfume.precio}
   class="group flex flex-col overflow-hidden rounded-lg border border-black/10 bg-surface transition-colors hover:border-amber/50"
 >
   <a href={`/perfume/${perfume.slug}`} class="block">
@@ -48,7 +50,7 @@ const { perfume } = Astro.props;
       }
     </div>
 
-    <p class="mt-2 font-display text-lg text-amber">{formatCLP(perfume.precio)}</p>
+    <p class="mt-2 font-body text-lg font-semibold text-ink">{formatCLP(perfume.precio)}</p>
 
     <button
       type="button"
