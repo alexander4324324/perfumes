@@ -1,0 +1,29 @@
+---
+import type { Acorde } from "../types";
+import { colorDeAcorde } from "../lib/acordes";
+
+interface Props {
+  acordes: Acorde[];
+}
+
+const { acordes } = Astro.props;
+const ordenados = [...acordes].sort((a, b) => b.intensidad - a.intensidad);
+---
+
+{
+  ordenados.length > 0 && (
+    <div class="flex flex-col gap-2">
+      <p class="text-xs uppercase tracking-wide text-ink/50">Acordes principales</p>
+      <div class="flex flex-col gap-1.5">
+        {ordenados.map((acorde) => (
+          <div
+            class="flex h-8 items-center rounded-md px-3 text-sm font-medium text-ink"
+            style={`width: ${Math.max(acorde.intensidad, 30)}%; background-color: ${colorDeAcorde(acorde.nombre)};`}
+          >
+            {acorde.nombre}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

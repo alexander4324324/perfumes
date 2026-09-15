@@ -4,34 +4,34 @@
   --font-display: "Fraunces", serif;
   --font-body: "Inter", sans-serif;
 
-  --color-ink: #1b1420;
-  --color-surface: #241c2c;
-  --color-surface-light: #322838;
-  --color-bone: #f7f3ee;
-  --color-amber: #c98a3e;
-  --color-amber-light: #e0ac6c;
+  --color-canvas: #f7f4ee;
+  --color-surface: #ffffff;
+  --color-surface-light: #f0e9dd;
+  --color-ink: #2b2620;
+  --color-amber: #a9782f;
+  --color-amber-light: #c79a4b;
   --color-wine: #8b3a4a;
 }
 
 @layer base {
   html {
-    background-color: var(--color-ink);
-    color-scheme: dark;
+    background-color: var(--color-canvas);
+    color-scheme: light;
   }
 
   body {
     font-family: var(--font-body);
-    background-color: var(--color-ink);
-    color: var(--color-bone);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
   }
 
   ::selection {
     background-color: var(--color-amber);
-    color: var(--color-ink);
+    color: white;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-amber-light);
+    outline: 2px solid var(--color-amber);
     outline-offset: 2px;
   }
 }

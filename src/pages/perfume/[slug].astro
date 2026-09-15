@@ -3,7 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import { perfumesDeMuestra } from "../../data/perfumes";
 import { sanityClient, PERFUMES_QUERY } from "../../lib/sanity";
-import { linkWhatsapp, siteConfig } from "../../config";
+import { siteConfig, formatCLP } from "../../config";
+import AccordBars from "../../components/AccordBars.astro";
 import type { Perfume } from "../../types";
 
 export async function getStaticPaths() {
@@ -18,18 +19,19 @@ export async function getStaticPaths() {
 }
 
 const { perfume } = Astro.props as { perfume: Perfume };
+const inputId = `cantidad-${perfume._id}`;
 ---
 
 <Layout title={`${perfume.nombre} — ${siteConfig.nombre}`} description={perfume.descripcion}>
   <Header />
 
   <main class="mx-auto max-w-4xl px-6 pb-24">
-    <a href="/" class="inline-block py-6 text-sm text-bone/50 hover:text-bone">
+    <a href="/" class="inline-block py-6 text-sm text-ink/50 hover:text-ink">
       ← Volver al catálogo
     </a>
 
     <div class="grid gap-10 sm:grid-cols-2">
-      <div class="overflow-hidden rounded-lg border border-white/10 bg-surface">
+      <div class="overflow-hidden rounded-lg border border-black/10 bg-surface">
         <img
           src={perfume.imagen}
           alt={`Frasco de ${perfume.nombre}`}
@@ -38,20 +40,26 @@ const { perfume } = Astro.props as { perfume: Perfume };
       </div>
 
       <div class="flex flex-col gap-4 py-2">
-        <p class="text-xs uppercase tracking-wide text-bone/50">{perfume.marca}</p>
-        <h1 class="font-display text-3xl text-bone sm:text-4xl">{perfume.nombre}</h1>
+        <p class="text-xs uppercase tracking-wide text-ink/50">{perfume.marca}</p>
+        <h1 class="font-display text-3xl text-ink sm:text-4xl">{perfume.nombre}</h1>
 
         <div class="flex flex-wrap gap-1.5">
           {
             perfume.categorias.map((categoria) => (
-              <span class="rounded-full border border-white/10 px-2.5 py-0.5 text-xs text-bone/60">
+              <span class="rounded-full border border-black/10 px-2.5 py-0.5 text-xs text-ink/60">
                 {categoria}
               </span>
             ))
           }
         </div>
 
-        <p class="text-base leading-relaxed text-bone/80">{perfume.descripcion}</p>
+        <p class="text-base leading-relaxed text-ink/80">{perfume.descripcion}</p>
+
+        {perfume.acordes && perfume.acordes.length > 0 && (
+          <AccordBars acordes={perfume.acordes} />
+        )}
+
+        <p class="font-display text-2xl text-amber">{formatCLP(perfume.precio)}</p>
 
         {
           !perfume.disponible && (
@@ -59,14 +67,46 @@ const { perfume } = Astro.props as { perfume: Perfume };
           )
         }
 
-        <a
-          href={linkWhatsapp(perfume.nombre)}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-4 inline-flex w-fit items-center justify-center rounded-full bg-amber px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-amber-light"
-        >
-          Consultar por WhatsApp
-        </a>
+        <div class="mt-2 flex items-center gap-4">
+          <div data-stepper class="flex items-center rounded-full border border-black/15">
+            <button
+              type="button"
+              data-menos
+              aria-label="Restar cantidad"
+              class="flex h-10 w-10 items-center justify-center text-ink/60 hover:text-ink"
+            >
+              −
+            </button>
+            <input
+              id={inputId}
+              type="number"
+              min="1"
+              value="1"
+              class="h-10 w-12 border-x border-black/15 bg-transparent text-center text-ink [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            />
+            <button
+              type="button"
+              data-mas
+              aria-label="Sumar cantidad"
+              class="flex h-10 w-10 items-center justify-center text-ink/60 hover:text-ink"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            type="button"
+            data-agregar-carrito
+            data-cantidad-input={inputId}
+            data-id={perfume._id}
+            data-nombre={perfume.nombre}
+            data-marca={perfume.marca}
+            data-precio={perfume.precio}
+            class="inline-flex flex-1 items-center justify-center rounded-full bg-amber px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-amber-light"
+          >
+            Agregar
+          </button>
+        </div>
       </div>
     </div>
   </main>

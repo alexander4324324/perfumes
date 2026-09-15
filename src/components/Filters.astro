@@ -3,7 +3,7 @@ const categorias = ["Todos", "Hombre", "Mujer", "Unisex", "Noche"] as const;
 ---
 
 <div
-  class="sticky top-0 z-10 -mx-6 border-b border-white/10 bg-ink/90 px-6 py-4 backdrop-blur"
+  class="sticky top-0 z-10 -mx-6 border-b border-black/10 bg-canvas/90 px-6 py-4 backdrop-blur"
   id="filtros"
 >
   <div class="mx-auto flex max-w-5xl flex-wrap gap-2">
@@ -16,8 +16,8 @@ const categorias = ["Todos", "Hombre", "Mujer", "Unisex", "Noche"] as const;
           class:list={[
             "filtro-btn rounded-full border px-4 py-1.5 text-sm transition-colors",
             i === 0
-              ? "border-amber bg-amber text-ink"
-              : "border-white/15 text-bone/70 hover:border-amber/60 hover:text-bone",
+              ? "border-amber bg-amber text-white"
+              : "border-black/15 text-ink/70 hover:border-amber/60 hover:text-ink",
           ]}
         >
           {categoria}
@@ -39,10 +39,10 @@ const categorias = ["Todos", "Hombre", "Mujer", "Unisex", "Noche"] as const;
         const activo = b === boton;
         b.setAttribute("aria-pressed", String(activo));
         b.classList.toggle("bg-amber", activo);
-        b.classList.toggle("text-ink", activo);
+        b.classList.toggle("text-white", activo);
         b.classList.toggle("border-amber", activo);
-        b.classList.toggle("border-white/15", !activo);
-        b.classList.toggle("text-bone/70", !activo);
+        b.classList.toggle("border-black/15", !activo);
+        b.classList.toggle("text-ink/70", !activo);
       });
 
       tarjetas.forEach((tarjeta) => {

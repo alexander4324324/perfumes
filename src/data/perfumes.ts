@@ -12,6 +12,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Ámbar cálido con fondo de vainilla y un toque de cuero.",
     categorias: ["Unisex", "Noche"],
     disponible: true,
+    precio: 45990,
+    acordes: [{ nombre: "Amaderado", intensidad: 90 }, { nombre: "Avainillado", intensidad: 75 }, { nombre: "Cuero", intensidad: 55 }],
     imagen: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80",
   },
   {
@@ -22,6 +24,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Azahar y jazmín sobre una base limpia de almizcle blanco.",
     categorias: ["Mujer"],
     disponible: true,
+    precio: 38990,
+    acordes: [{ nombre: "Floral", intensidad: 95 }, { nombre: "Verde", intensidad: 60 }, { nombre: "Almizcle", intensidad: 50 }],
     imagen: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80",
   },
   {
@@ -32,6 +36,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Vetiver terroso con pimienta negra y cedro de Virginia.",
     categorias: ["Hombre"],
     disponible: true,
+    precio: 32990,
+    acordes: [{ nombre: "Amaderado", intensidad: 85 }, { nombre: "Especiado", intensidad: 65 }, { nombre: "Terroso", intensidad: 55 }],
     imagen: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80",
   },
   {
@@ -42,6 +48,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Oud intenso, rosa de Damasco y azafrán. Estela muy duradera.",
     categorias: ["Unisex", "Noche"],
     disponible: true,
+    precio: 79990,
+    acordes: [{ nombre: "Amaderado", intensidad: 90 }, { nombre: "Ámbar", intensidad: 80 }, { nombre: "Especiado", intensidad: 60 }],
     imagen: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=800&q=80",
   },
   {
@@ -52,6 +60,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Bergamota, pomelo y hojas de higuera recién cortadas.",
     categorias: ["Hombre", "Unisex"],
     disponible: true,
+    precio: 24990,
+    acordes: [{ nombre: "Cítrico", intensidad: 95 }, { nombre: "Verde", intensidad: 60 }, { nombre: "Acuático", intensidad: 45 }],
     imagen: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=800&q=80",
   },
   {
@@ -62,6 +72,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Rosa turca, peonía y un fondo suave de almizcle.",
     categorias: ["Mujer"],
     disponible: true,
+    precio: 41990,
+    acordes: [{ nombre: "Rosas", intensidad: 90 }, { nombre: "Floral", intensidad: 75 }, { nombre: "Almizcle", intensidad: 55 }],
     imagen: "https://images.unsplash.com/photo-1615368144592-05730c5cb5e5?w=800&q=80",
   },
   {
@@ -72,6 +84,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Hoja de tabaco, miel y whisky ahumado. Ideal para la noche.",
     categorias: ["Hombre", "Noche"],
     disponible: false,
+    precio: 36990,
+    acordes: [{ nombre: "Tabaco", intensidad: 85 }, { nombre: "Dulce", intensidad: 70 }, { nombre: "Amaderado", intensidad: 60 }],
     imagen: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&q=80",
   },
   {
@@ -82,6 +96,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Notas acuáticas, sal marina y un fondo ligero de almizcle.",
     categorias: ["Unisex"],
     disponible: true,
+    precio: 22990,
+    acordes: [{ nombre: "Acuático", intensidad: 90 }, { nombre: "Cítrico", intensidad: 55 }, { nombre: "Almizcle", intensidad: 45 }],
     imagen: "https://images.unsplash.com/photo-1610461888750-10bfc601b874?w=800&q=80",
   },
   {
@@ -92,6 +108,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Iris polvoriento, violeta y una base envolvente de sándalo.",
     categorias: ["Mujer", "Noche"],
     disponible: true,
+    precio: 43990,
+    acordes: [{ nombre: "Polvoriento", intensidad: 85 }, { nombre: "Floral", intensidad: 70 }, { nombre: "Amaderado", intensidad: 55 }],
     imagen: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=800&q=80",
   },
   {
@@ -102,6 +120,8 @@ export const perfumesDeMuestra: Perfume[] = [
     descripcion: "Cuero, clavo de olor y nuez moscada sobre fondo ambarino.",
     categorias: ["Hombre", "Unisex", "Noche"],
     disponible: true,
+    precio: 39990,
+    acordes: [{ nombre: "Cuero", intensidad: 90 }, { nombre: "Especiado", intensidad: 70 }, { nombre: "Ámbar", intensidad: 60 }],
     imagen: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800&q=80",
   },
 ];

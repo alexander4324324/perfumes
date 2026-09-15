@@ -1,6 +1,6 @@
 import { createClient, type SanityClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { SanityImageSource } from "@sanity/image-url";
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? "production";
@@ -15,7 +15,7 @@ export const sanityClient: SanityClient | null = sanityIsConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: true,
+      useCdn: false,
     })
   : null;
 
@@ -36,5 +36,7 @@ export const PERFUMES_QUERY = `*[_type == "perfume"] | order(nombre asc){
   descripcion,
   categorias,
   disponible,
+  precio,
+  acordes,
   "imagen": imagen.asset->url
 }`;

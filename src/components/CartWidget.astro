@@ -1,0 +1,59 @@
+---
+---
+
+<button
+  id="carrito-abrir"
+  type="button"
+  aria-label="Abrir carrito"
+  class="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-amber text-white shadow-lg shadow-black/30 transition-transform hover:scale-105"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+  <span
+    id="carrito-contador"
+    class="hidden absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-wine px-1 text-xs font-medium text-white"
+  >
+    0
+  </span>
+</button>
+
+<div id="carrito-fondo" class="fixed inset-0 z-40 hidden bg-black/60"></div>
+
+<aside
+  id="carrito-panel"
+  class="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm translate-x-full flex-col bg-surface transition-transform duration-300"
+>
+  <div class="flex items-center justify-between border-b border-black/10 p-5">
+    <h2 class="font-display text-xl text-ink">Tu selección</h2>
+    <button id="carrito-cerrar" type="button" aria-label="Cerrar carrito" class="text-ink/60 hover:text-ink">
+      ✕
+    </button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto p-5">
+    <p id="carrito-vacio" class="text-sm text-ink/50">
+      Todavía no agregas perfumes. Vuelve al catálogo y presiona "Agregar".
+    </p>
+    <div id="carrito-lista"></div>
+  </div>
+
+  <div class="border-t border-black/10 p-5">
+    <div class="mb-4 flex items-center justify-between text-sm text-ink/70">
+      <span>Total</span>
+      <span id="carrito-total" class="font-medium text-ink">$0</span>
+    </div>
+    <button
+      id="carrito-enviar"
+      type="button"
+      disabled
+      class="w-full rounded-full bg-amber px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-amber-light disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Enviar pedido por WhatsApp
+    </button>
+  </div>
+</aside>
+
+<script src="/carrito.js" is:inline></script>

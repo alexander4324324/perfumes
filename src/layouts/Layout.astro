@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import CartWidget from "../components/CartWidget.astro";
+import { siteConfig } from "../config";
 
 interface Props {
   title: string;
@@ -27,7 +29,8 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body data-whatsapp={siteConfig.whatsappNumero}>
     <slot />
+    <CartWidget />
   </body>
 </html>
