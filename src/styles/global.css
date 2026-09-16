@@ -2,6 +2,7 @@
 
 @theme {
   --font-display: "Abril Fatface", serif;
+  --font-tagline: "Cormorant", serif;
   --font-body: "Inter", sans-serif;
 
   --color-canvas: #ffffff;

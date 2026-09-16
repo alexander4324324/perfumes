@@ -14,6 +14,7 @@ export interface Perfume {
   categorias: Categoria[];
   disponible: boolean;
   precio: number;
+  volumenMl: number;
   imagen: string;
   acordes?: Acorde[];
 }

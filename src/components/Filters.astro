@@ -11,8 +11,8 @@ const ordenes = [
   class="sticky top-0 z-10 -mx-6 border-b border-black/10 bg-canvas/95 px-6 py-4 backdrop-blur"
   id="filtros"
 >
-  <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-3">
-    <div class="relative min-w-[160px] flex-1">
+  <div class="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+    <div class="relative w-full sm:min-w-[160px] sm:flex-1">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -32,21 +32,22 @@ const ordenes = [
       />
     </div>
 
-    <div class="relative shrink-0">
+    <div class="flex w-full gap-3 sm:contents">
+    <div class="relative flex-1 sm:flex-none sm:shrink-0">
       <button
         type="button"
         id="orden-boton"
-        class="flex items-center gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink"
+        class="flex w-full items-center justify-between gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink sm:w-auto sm:justify-start"
       >
-        <span id="orden-etiqueta">Relevancia</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5">
+        <span id="orden-etiqueta" class="truncate">Relevancia</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5 shrink-0">
           <path d="m6 9 6 6 6-6"></path>
         </svg>
       </button>
 
       <div
         id="orden-menu"
-        class="absolute right-0 top-full z-20 mt-2 hidden w-52 overflow-hidden rounded-lg border border-black/10 bg-surface shadow-lg"
+        class="absolute left-0 top-full z-20 mt-2 hidden w-52 overflow-hidden rounded-lg border border-black/10 bg-surface shadow-lg sm:left-auto sm:right-0"
       >
         {
           ordenes.map((orden) => (
@@ -62,14 +63,14 @@ const ordenes = [
       </div>
     </div>
 
-    <div class="relative shrink-0">
+    <div class="relative flex-1 sm:flex-none sm:shrink-0">
       <button
         type="button"
         id="categoria-boton"
-        class="flex items-center gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink"
+        class="flex w-full items-center justify-between gap-1.5 rounded-full border border-black/15 bg-surface px-4 py-2 text-sm text-ink sm:w-auto sm:justify-start"
       >
         <span id="categoria-etiqueta">Todos</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5 shrink-0">
           <path d="m6 9 6 6 6-6"></path>
         </svg>
       </button>
@@ -90,6 +91,7 @@ const ordenes = [
           ))
         }
       </div>
+    </div>
     </div>
   </div>
 </div>
@@ -129,7 +131,7 @@ const ordenes = [
 
   function aplicarOrden() {
     if (!grilla) return;
-    const tarjetas = Array.from(grilla.querySelectorAll<HTMLElement>("[data-precio]"));
+    const tarjetas = Array.from(grilla.children) as HTMLElement[];
 
     if (ordenActivo === "precio-asc") {
       tarjetas.sort((a, b) => Number(a.dataset.precio) - Number(b.dataset.precio));

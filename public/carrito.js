@@ -36,6 +36,20 @@ function agregarAlCarrito(item) {
   guardarCarrito(items);
 }
 
+function cambiarCantidad(id, delta) {
+  const items = leerCarrito();
+  const item = items.find((i) => i.id === id);
+  if (!item) return;
+
+  item.cantidad += delta;
+
+  if (item.cantidad <= 0) {
+    guardarCarrito(items.filter((i) => i.id !== id));
+  } else {
+    guardarCarrito(items);
+  }
+}
+
 function quitarDelCarrito(id) {
   const items = leerCarrito().filter((i) => i.id !== id);
   guardarCarrito(items);
@@ -63,13 +77,20 @@ function renderPanel() {
     const subtotal = item.precio * item.cantidad;
     total += subtotal;
     const fila = document.createElement("div");
-    fila.className = "flex items-center justify-between gap-3 py-2 border-b border-black/10";
+    fila.className = "flex items-center justify-between gap-3 py-3 border-b border-black/10";
     fila.innerHTML = `
-      <div class="min-w-0">
-        <p class="truncate text-sm text-ink">${item.nombre} ${item.cantidad > 1 ? `× ${item.cantidad}` : ""}</p>
-        <p class="text-xs text-ink/50">${formatCLP(subtotal)}</p>
+      <div class="min-w-0 flex-1">
+        <p class="truncate text-sm text-ink">${item.nombre}</p>
+        <p class="text-xs text-ink/50">${formatCLP(item.precio)} c/u · ${formatCLP(subtotal)}</p>
       </div>
-      <button type="button" data-quitar="${item.id}" class="shrink-0 text-xs text-ink/50 hover:text-wine">Quitar</button>
+      <div class="flex shrink-0 items-center gap-2">
+        <div class="flex items-center rounded-full border border-black/15">
+          <button type="button" data-restar="${item.id}" aria-label="Restar" class="flex h-7 w-7 items-center justify-center text-ink/60 hover:text-ink">−</button>
+          <span class="w-5 text-center text-sm text-ink">${item.cantidad}</span>
+          <button type="button" data-sumar="${item.id}" aria-label="Sumar" class="flex h-7 w-7 items-center justify-center text-ink/60 hover:text-ink">+</button>
+        </div>
+        <button type="button" data-quitar="${item.id}" aria-label="Quitar por completo" class="text-ink/40 hover:text-wine">✕</button>
+      </div>
     `;
     lista.appendChild(fila);
   });
@@ -77,10 +98,14 @@ function renderPanel() {
   totalEl.textContent = formatCLP(total);
   btnEnviar.toggleAttribute("disabled", items.length === 0);
 
+  lista.querySelectorAll("[data-restar]").forEach((boton) => {
+    boton.addEventListener("click", () => cambiarCantidad(boton.getAttribute("data-restar"), -1));
+  });
+  lista.querySelectorAll("[data-sumar]").forEach((boton) => {
+    boton.addEventListener("click", () => cambiarCantidad(boton.getAttribute("data-sumar"), 1));
+  });
   lista.querySelectorAll("[data-quitar]").forEach((boton) => {
-    boton.addEventListener("click", () => {
-      quitarDelCarrito(boton.getAttribute("data-quitar"));
-    });
+    boton.addEventListener("click", () => quitarDelCarrito(boton.getAttribute("data-quitar")));
   });
 }
 

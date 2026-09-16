@@ -13,10 +13,10 @@ const { perfume } = Astro.props;
   data-categorias={perfume.categorias.join(",")}
   data-buscar={`${perfume.nombre} ${perfume.marca}`.toLowerCase()}
   data-precio={perfume.precio}
-  class="group flex flex-col overflow-hidden rounded-lg border border-black/10 bg-surface transition-colors hover:border-amber/50"
+  class="group flex h-full flex-col overflow-hidden rounded-lg border border-black/10 bg-surface transition-colors hover:border-amber/50"
 >
   <a href={`/perfume/${perfume.slug}`} class="block">
-    <div class="relative aspect-[4/5] overflow-hidden bg-surface-light">
+    <div class="relative aspect-square overflow-hidden bg-surface-light sm:aspect-[4/5]">
       <img
         src={perfume.imagen}
         alt={`Frasco de ${perfume.nombre}`}
@@ -25,7 +25,7 @@ const { perfume } = Astro.props;
       />
       {
         !perfume.disponible && (
-          <span class="absolute left-3 top-3 rounded-full bg-black/70 px-3 py-1 text-xs text-white">
+          <span class="absolute left-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] text-white sm:left-3 sm:top-3 sm:px-3 sm:py-1 sm:text-xs">
             Agotado
           </span>
         )
@@ -33,35 +33,40 @@ const { perfume } = Astro.props;
     </div>
   </a>
 
-  <div class="flex flex-1 flex-col gap-2 p-5">
-    <p class="text-xs uppercase tracking-wide text-ink/50">{perfume.marca}</p>
+  <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-5">
+    <p class="text-[10px] uppercase tracking-wide text-ink/50 sm:text-xs">{perfume.marca}</p>
     <a href={`/perfume/${perfume.slug}`}>
-      <h3 class="font-display text-xl text-ink">{perfume.nombre}</h3>
+      <h3 class="font-display text-base leading-tight text-ink sm:text-xl">{perfume.nombre}</h3>
     </a>
-    <p class="line-clamp-2 text-sm text-ink/70">{perfume.descripcion}</p>
+    <span class="w-fit rounded border border-ink/20 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-ink sm:px-2 sm:text-xs">
+      {perfume.volumenMl} ML
+    </span>
+    <p class="line-clamp-2 hidden min-h-[2.6rem] text-sm text-ink/70 sm:block">{perfume.descripcion}</p>
 
-    <div class="mt-1 flex flex-wrap gap-1.5">
+    <div class="flex flex-wrap gap-1 sm:gap-1.5">
       {
         perfume.categorias.map((categoria) => (
-          <span class="rounded-full border border-black/10 px-2.5 py-0.5 text-xs text-ink/60">
+          <span class="rounded-full border border-black/10 px-2 py-0.5 text-[10px] text-ink/60 sm:px-2.5 sm:text-xs">
             {categoria}
           </span>
         ))
       }
     </div>
 
-    <p class="mt-2 font-body text-lg font-semibold text-ink">{formatCLP(perfume.precio)}</p>
+    <div class="mt-auto flex flex-col gap-1.5 pt-2 sm:gap-2">
+      <p class="font-body text-base font-semibold text-ink sm:text-lg">{formatCLP(perfume.precio)}</p>
 
-    <button
-      type="button"
-      data-agregar-carrito
-      data-id={perfume._id}
-      data-nombre={perfume.nombre}
-      data-marca={perfume.marca}
-      data-precio={perfume.precio}
-      class="mt-3 inline-flex items-center justify-center rounded-full bg-amber px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-light"
-    >
-      Agregar
-    </button>
+      <button
+        type="button"
+        data-agregar-carrito
+        data-id={perfume._id}
+        data-nombre={perfume.nombre}
+        data-marca={perfume.marca}
+        data-precio={perfume.precio}
+        class="inline-flex items-center justify-center rounded-full bg-amber px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-amber-light sm:px-4 sm:py-2 sm:text-sm"
+      >
+        Agregar
+      </button>
+    </div>
   </div>
 </article>

@@ -3,13 +3,13 @@ export const siteConfig = {
   nombreLinea1: "Perfumes",
   nombreLinea2: "Club",
   nombre: "Perfumes Club",
-  tagline: "Fragancias de nicho, elegidas una por una",
+  tagline: "Explora una selección completa de perfumería para cada estilo, ocasión y personalidad.",
   whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? "56900000000",
   instagramUsuario: "perfumesclub.cl",
   infoEntrega: [
-    { emoji: "📦", texto: "Perfumes por encargo & catálogo disponible." },
-    { emoji: "🚇", texto: "Entregas: L4 (Sótero del Río y Protectora de la Infancia)." },
-    { emoji: "🚚", texto: "Envíos a todo Chile vía Starken." },
+    { icono: "encargo", texto: "Perfumes por encargo & catálogo disponible." },
+    { icono: "entrega", texto: "Entregas: L4 (Sótero del Río y Protectora de la Infancia)." },
+    { icono: "envio", texto: "Envíos a todo Chile vía Starken." },
   ],
 };
 

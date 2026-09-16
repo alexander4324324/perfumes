@@ -37,6 +37,7 @@ export const PERFUMES_QUERY = `*[_type == "perfume"] | order(nombre asc){
   categorias,
   disponible,
   precio,
+  volumenMl,
   acordes,
   "imagen": imagen.asset->url
 }`;
