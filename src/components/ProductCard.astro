@@ -7,6 +7,11 @@ interface Props {
 }
 
 const { perfume } = Astro.props;
+const variantes =
+  perfume.variantes && perfume.variantes.length > 0
+    ? perfume.variantes
+    : [{ volumenMl: perfume.volumenMl, precio: perfume.precio }];
+const inicial = variantes[0];
 ---
 
 <article
@@ -33,16 +38,28 @@ const { perfume } = Astro.props;
     </div>
   </a>
 
-  <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-5">
+  <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-5" data-variante-grupo>
     <p class="text-[10px] uppercase tracking-wide text-ink/50 sm:text-xs">{perfume.marca}</p>
     <a href={`/perfume/${perfume.slug}`}>
-      <h3 class="font-display text-base leading-tight text-ink sm:text-xl">{perfume.nombre}</h3>
+      <h3 class="font-body text-base font-semibold leading-tight text-ink sm:text-xl">{perfume.nombre}</h3>
     </a>
 
     <div class="flex flex-wrap items-center gap-1.5">
-      <span class="w-fit rounded border border-ink/20 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-ink sm:px-2 sm:text-xs">
-        {perfume.volumenMl} ML
-      </span>
+      {
+        variantes.map((v, i) => (
+          <button
+            type="button"
+            class:list={[
+              "variante-btn rounded border px-1.5 py-0.5 text-[10px] font-semibold tracking-wide transition-colors sm:px-2 sm:text-xs",
+              i === 0 ? "border-ink bg-ink text-white" : "border-ink/20 text-ink hover:border-ink/50",
+            ]}
+            data-ml={v.volumenMl}
+            data-precio={v.precio}
+          >
+            {v.volumenMl} ML
+          </button>
+        ))
+      }
       {
         perfume.categorias.map((categoria) => (
           <span class="rounded-full border border-black/10 px-2 py-0.5 text-[10px] text-ink/60 sm:px-2.5 sm:text-xs">
@@ -55,15 +72,19 @@ const { perfume } = Astro.props;
     <p class="line-clamp-2 hidden min-h-[2.6rem] text-sm text-ink/70 sm:block">{perfume.descripcion}</p>
 
     <div class="mt-auto flex flex-col gap-1.5 pt-2 sm:gap-2">
-      <p class="font-body text-base font-semibold text-ink sm:text-lg">{formatCLP(perfume.precio)}</p>
+      <p data-precio-display class="font-body text-base font-semibold text-ink sm:text-lg">
+        {formatCLP(inicial.precio)}
+      </p>
 
       <button
         type="button"
         data-agregar-carrito
-        data-id={perfume._id}
+        data-id={`${perfume._id}-${inicial.volumenMl}`}
+        data-id-base={perfume._id}
         data-nombre={perfume.nombre}
         data-marca={perfume.marca}
-        data-precio={perfume.precio}
+        data-precio={inicial.precio}
+        data-volumen={inicial.volumenMl}
         class="inline-flex items-center justify-center rounded-full bg-amber px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-amber-light sm:px-4 sm:py-2 sm:text-sm"
       >
         Agregar

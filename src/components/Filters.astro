@@ -92,6 +92,25 @@ const ordenes = [
         }
       </div>
     </div>
+
+    <button
+      id="carrito-abrir"
+      type="button"
+      aria-label="Abrir carrito"
+      class="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/15 bg-surface text-ink sm:h-10 sm:w-10"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 sm:h-5 sm:w-5">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span
+        id="carrito-contador"
+        class="hidden absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-wine px-1 text-[10px] font-medium text-white"
+      >
+        0
+      </span>
+    </button>
     </div>
   </div>
 </div>

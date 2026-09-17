@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import CartWidget from "../components/CartWidget.astro";
 import Footer from "../components/Footer.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
 import { siteConfig } from "../config";
 
 interface Props {
@@ -43,6 +44,7 @@ const {
   <body data-whatsapp={siteConfig.whatsappNumero}>
     <slot />
     <Footer />
-    <CartWidget />
+    <CartWidget mostrarBotonFlotante={Astro.url.pathname !== "/"} />
+    <WhatsAppButton />
   </body>
 </html>

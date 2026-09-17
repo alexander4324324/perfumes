@@ -15,6 +15,10 @@ export const perfumesDeMuestra: Perfume[] = [
     precio: 45990,
     acordes: [{ nombre: "Amaderado", intensidad: 90 }, { nombre: "Avainillado", intensidad: 75 }, { nombre: "Cuero", intensidad: 55 }],
     volumenMl: 100,
+    variantes: [
+      { volumenMl: 50, precio: 32990 },
+      { volumenMl: 100, precio: 45990 },
+    ],
     imagen: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80",
   },
   {

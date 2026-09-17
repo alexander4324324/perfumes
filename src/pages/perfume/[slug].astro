@@ -24,6 +24,11 @@ const { perfume, todosLosPerfumes } = Astro.props as {
   todosLosPerfumes: Perfume[];
 };
 const inputId = `cantidad-${perfume._id}`;
+const variantes =
+  perfume.variantes && perfume.variantes.length > 0
+    ? perfume.variantes
+    : [{ volumenMl: perfume.volumenMl, precio: perfume.precio }];
+const inicial = variantes[0];
 
 // Perfumes de la misma categoría (prioridad), completando con otros si faltan.
 const otros = todosLosPerfumes.filter((p) => p.slug !== perfume.slug);
@@ -53,12 +58,27 @@ const relacionados = [
         />
       </div>
 
-      <div class="flex flex-col gap-4 py-2">
+      <div class="flex flex-col gap-4 py-2" data-variante-grupo>
         <p class="text-xs uppercase tracking-wide text-ink/50">{perfume.marca}</p>
-        <h1 class="font-display text-3xl text-ink sm:text-4xl">{perfume.nombre}</h1>
-        <span class="w-fit rounded border border-ink/20 px-2.5 py-1 text-sm font-semibold tracking-wide text-ink">
-          {perfume.volumenMl} ML
-        </span>
+        <h1 class="font-body text-2xl font-semibold text-ink sm:text-3xl">{perfume.nombre}</h1>
+
+        <div class="flex flex-wrap items-center gap-2">
+          {
+            variantes.map((v, i) => (
+              <button
+                type="button"
+                class:list={[
+                  "variante-btn rounded border px-2.5 py-1 text-sm font-semibold tracking-wide transition-colors",
+                  i === 0 ? "border-ink bg-ink text-white" : "border-ink/20 text-ink hover:border-ink/50",
+                ]}
+                data-ml={v.volumenMl}
+                data-precio={v.precio}
+              >
+                {v.volumenMl} ML
+              </button>
+            ))
+          }
+        </div>
 
         <div class="flex flex-wrap gap-1.5">
           {
@@ -76,7 +96,9 @@ const relacionados = [
           <AccordBars acordes={perfume.acordes} />
         )}
 
-        <p class="font-body text-2xl font-semibold text-ink">{formatCLP(perfume.precio)}</p>
+        <p data-precio-display class="font-body text-2xl font-semibold text-ink">
+          {formatCLP(inicial.precio)}
+        </p>
 
         {
           !perfume.disponible && (
@@ -115,10 +137,12 @@ const relacionados = [
             type="button"
             data-agregar-carrito
             data-cantidad-input={inputId}
-            data-id={perfume._id}
+            data-id={`${perfume._id}-${inicial.volumenMl}`}
+            data-id-base={perfume._id}
             data-nombre={perfume.nombre}
             data-marca={perfume.marca}
-            data-precio={perfume.precio}
+            data-precio={inicial.precio}
+            data-volumen={inicial.volumenMl}
             class="inline-flex flex-1 items-center justify-center rounded-full bg-amber px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-amber-light"
           >
             Agregar

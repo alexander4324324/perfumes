@@ -80,7 +80,7 @@ function renderPanel() {
     fila.className = "flex items-center justify-between gap-3 py-3 border-b border-black/10";
     fila.innerHTML = `
       <div class="min-w-0 flex-1">
-        <p class="truncate text-sm text-ink">${item.nombre}</p>
+        <p class="truncate text-sm text-ink">${item.nombre} — ${item.volumenMl}ml</p>
         <p class="text-xs text-ink/50">${formatCLP(item.precio)} c/u · ${formatCLP(subtotal)}</p>
       </div>
       <div class="flex shrink-0 items-center gap-2">
@@ -122,7 +122,39 @@ function inicializarBotonesAgregar() {
         nombre: boton.getAttribute("data-nombre"),
         marca: boton.getAttribute("data-marca"),
         precio: Number(boton.getAttribute("data-precio")),
+        volumenMl: Number(boton.getAttribute("data-volumen")),
         cantidad,
+      });
+    });
+  });
+}
+
+// Selector de presentaciones (ml) con precio propio por perfume.
+function inicializarVariantes() {
+  document.querySelectorAll("[data-variante-grupo]").forEach((grupo) => {
+    const botonesVariante = grupo.querySelectorAll(".variante-btn");
+    const precioDisplay = grupo.querySelector("[data-precio-display]");
+    const agregarBtn = grupo.querySelector("[data-agregar-carrito]");
+
+    botonesVariante.forEach((boton) => {
+      boton.addEventListener("click", () => {
+        botonesVariante.forEach((b) => {
+          b.classList.remove("border-ink", "bg-ink", "text-white");
+          b.classList.add("border-ink/20", "text-ink");
+        });
+        boton.classList.remove("border-ink/20", "text-ink");
+        boton.classList.add("border-ink", "bg-ink", "text-white");
+
+        const ml = boton.getAttribute("data-ml");
+        const precio = boton.getAttribute("data-precio");
+
+        if (precioDisplay) precioDisplay.textContent = formatCLP(precio);
+        if (agregarBtn) {
+          agregarBtn.setAttribute("data-precio", precio);
+          agregarBtn.setAttribute("data-volumen", ml);
+          const idBase = agregarBtn.getAttribute("data-id-base");
+          agregarBtn.setAttribute("data-id", `${idBase}-${ml}`);
+        }
       });
     });
   });
@@ -153,7 +185,7 @@ function inicializarPanel() {
     if (items.length === 0) return;
     const lineas = items.map(
       (item, i) =>
-        `${i + 1}. ${item.nombre} (${item.marca}) x${item.cantidad} - ${formatCLP(item.precio * item.cantidad)}`
+        `${i + 1}. ${item.nombre} (${item.marca}) - ${item.volumenMl}ml x${item.cantidad} - ${formatCLP(item.precio * item.cantidad)}`
     );
     const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
     const numero = document.body.dataset.whatsapp;
@@ -183,6 +215,7 @@ function inicializarStepper() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  inicializarVariantes();
   inicializarBotonesAgregar();
   inicializarPanel();
   inicializarStepper();

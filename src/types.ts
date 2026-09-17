@@ -5,6 +5,11 @@ export interface Acorde {
   intensidad: number;
 }
 
+export interface Variante {
+  volumenMl: number;
+  precio: number;
+}
+
 export interface Perfume {
   _id: string;
   slug: string;
@@ -15,6 +20,7 @@ export interface Perfume {
   disponible: boolean;
   precio: number;
   volumenMl: number;
+  variantes?: Variante[];
   imagen: string;
   acordes?: Acorde[];
 }

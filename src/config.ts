@@ -1,8 +1,9 @@
 // Cambia estos valores por los datos reales de tu amigo.
 export const siteConfig = {
   nombreLinea1: "Perfumes",
+  nombreMedio: "Tester",
   nombreLinea2: "Club",
-  nombre: "Perfumes Club",
+  nombre: "Perfumes Tester Club",
   tagline: "Explora una selección completa de perfumería para cada estilo, ocasión y personalidad.",
   whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? "56900000000",
   instagramUsuario: "perfumesclub.cl",

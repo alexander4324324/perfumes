@@ -43,7 +43,6 @@ export default defineType({
           { title: "Hombre", value: "Hombre" },
           { title: "Mujer", value: "Mujer" },
           { title: "Unisex", value: "Unisex" },
-          { title: "Noche", value: "Noche" },
         ],
       },
       validation: (Rule) => Rule.required().min(1),
@@ -53,6 +52,82 @@ export default defineType({
       title: "Disponible",
       type: "boolean",
       initialValue: true,
+    }),
+    defineField({
+      name: "precio",
+      title: "Precio (CLP)",
+      type: "number",
+      validation: (Rule) => Rule.required().positive().integer(),
+    }),
+    defineField({
+      name: "volumenMl",
+      title: "Volumen (ml)",
+      type: "number",
+      description: "Ej: 100 (para un frasco de 100ml)",
+      validation: (Rule) => Rule.required().positive().integer(),
+    }),
+    defineField({
+      name: "variantes",
+      title: "Otras presentaciones (opcional)",
+      description:
+        "Si este perfume viene en más de un tamaño con precios distintos (ej: 50ml y 100ml), agrega cada uno aquí. El comprador podrá elegir el tamaño y el precio cambia solo. Si el perfume solo tiene una presentación, deja esto vacío.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "variante",
+          fields: [
+            defineField({
+              name: "volumenMl",
+              title: "Volumen (ml)",
+              type: "number",
+              validation: (Rule) => Rule.required().positive().integer(),
+            }),
+            defineField({
+              name: "precio",
+              title: "Precio (CLP)",
+              type: "number",
+              validation: (Rule) => Rule.required().positive().integer(),
+            }),
+          ],
+          preview: {
+            select: { ml: "volumenMl", precio: "precio" },
+            prepare({ ml, precio }) {
+              return { title: `${ml} ml`, subtitle: `$${precio}` };
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "acordes",
+      title: "Acordes principales",
+      description:
+        "Las notas/acordes más representativos, ordenados de más a menos intensos (ej: Amaderado, Avainillado, Aromático...).",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "acorde",
+          fields: [
+            defineField({
+              name: "nombre",
+              title: "Nombre del acorde",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "intensidad",
+              title: "Intensidad (0-100)",
+              type: "number",
+              validation: (Rule) => Rule.required().min(0).max(100),
+            }),
+          ],
+          preview: {
+            select: { title: "nombre", subtitle: "intensidad" },
+          },
+        },
+      ],
     }),
     defineField({
       name: "imagen",
