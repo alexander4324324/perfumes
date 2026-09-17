@@ -81,8 +81,8 @@ function renderPanel() {
     fila.innerHTML = `
       <img src="${item.imagen}" alt="${item.nombre}" class="h-14 w-14 shrink-0 rounded object-cover bg-surface-light" />
       <div class="min-w-0 flex-1">
-        <p class="truncate text-sm text-ink">${item.nombre} — ${item.volumenMl}ml</p>
-        <p class="text-xs text-ink/50">${formatCLP(item.precio)} c/u · ${formatCLP(subtotal)}</p>
+        <p class="truncate text-sm text-ink">${item.nombre}</p>
+        <p class="text-xs text-ink/50">${item.volumenMl}ml · ${formatCLP(item.precio)} c/u · ${formatCLP(subtotal)}</p>
       </div>
       <div class="flex shrink-0 items-center gap-2">
         <div class="flex items-center rounded-full border border-black/15">
