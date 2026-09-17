@@ -77,8 +77,9 @@ function renderPanel() {
     const subtotal = item.precio * item.cantidad;
     total += subtotal;
     const fila = document.createElement("div");
-    fila.className = "flex items-center justify-between gap-3 py-3 border-b border-black/10";
+    fila.className = "flex items-center gap-3 py-3 border-b border-black/10";
     fila.innerHTML = `
+      <img src="${item.imagen}" alt="${item.nombre}" class="h-14 w-14 shrink-0 rounded object-cover bg-surface-light" />
       <div class="min-w-0 flex-1">
         <p class="truncate text-sm text-ink">${item.nombre} — ${item.volumenMl}ml</p>
         <p class="text-xs text-ink/50">${formatCLP(item.precio)} c/u · ${formatCLP(subtotal)}</p>
@@ -123,6 +124,7 @@ function inicializarBotonesAgregar() {
         marca: boton.getAttribute("data-marca"),
         precio: Number(boton.getAttribute("data-precio")),
         volumenMl: Number(boton.getAttribute("data-volumen")),
+        imagen: boton.getAttribute("data-imagen"),
         cantidad,
       });
     });
